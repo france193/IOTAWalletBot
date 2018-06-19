@@ -55,21 +55,19 @@ function retrieveAddresses(iota, id) {
 			if (err) {
 				reject(new DatabaseException(functionName + " - " + err));
 			} else {
-				if (DEBUG) {
-					let addresses = [];
+				let addresses = [];
 
-					res.rows.forEach(function (e) {
-						let address = {
-							'address': iota.utils.noChecksum(e.address),
-							'index': e.index,
-							'balance': e.balance,
-							'security': e.security
-						};
+				res.rows.forEach(function (e) {
+					let address = {
+						'address': iota.utils.noChecksum(e.address),
+						'index': e.index,
+						'balance': e.balance,
+						'security': e.security
+					};
 
-						addresses.push(address);
-					});
-					resolve(addresses);
-				}
+					addresses.push(address);
+				});
+				resolve(addresses);
 			}
 		});
 	});

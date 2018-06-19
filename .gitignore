@@ -1,0 +1,9 @@
+### GITIGNORE
+
+# IntelliJ project files
+.idea
+.gitignore
+logs/
+node_modules/
+settings/
+work_in_progress/

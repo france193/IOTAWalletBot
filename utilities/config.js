@@ -119,8 +119,8 @@ bitfinex = new Bitfinex();
  * IOTA
  **/
 iota = new IOTA({
-	'host': settings_json.IOTA_NODE.iotanode1.host,
-	'port': settings_json.IOTA_NODE.iotanode1.port
+	'host': settings_json.IOTA_NODE.IOTANode_04.host,
+	'port': settings_json.IOTA_NODE.IOTANode_04.port
 });
 
 /**

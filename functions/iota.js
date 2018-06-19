@@ -16,8 +16,6 @@
  * - updateAddressesBalances
  */
 
-'use strict';
-
 // export
 let e = module.exports = {};
 
@@ -62,10 +60,6 @@ function getAddress(iota, seed, index) {
 		// check seed
 		if (!iota.valid.isAddress(seed)) {
 			reject(new InvalidSeedException(functionName + " - Invalid seed!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "Valid seed!");
-			}
 		}
 
 		// I want last address without provide index
@@ -117,10 +111,6 @@ function getConfirmedBalance(iota, seed) {
 		// check seed
 		if (!iota.valid.isAddress(seed)) {
 			reject(new CannotRetrieveWalletBalanceException(functionName, "invalid Seed!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid seed!");
-			}
 		}
 
 		iota.api.getInputs(seed, function (error, success) {
@@ -149,10 +139,6 @@ function sendTrytes(iota, trytes, depth, min_weight_magnitude) {
 	return new Promise(function (resolve, reject) {
 		if (!iota.valid.isArrayOfTrytes(trytes)) {
 			reject(new Error(functionName + " - invalid Trytes!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid trytesArray!");
-			}
 		}
 
 		iota.api.sendTrytes(trytes, depth, min_weight_magnitude, function (error, success) {
@@ -161,10 +147,6 @@ function sendTrytes(iota, trytes, depth, min_weight_magnitude) {
 			} else {
 				if (!iota.utils.isBundle(success)) {
 					reject(new Error(functionName + " - invalid bundle!"));
-				} else {
-					if (DEBUG) {
-						Utils.consoleLog("DEBUG", functionName, "Valid bundle!");
-					}
 				}
 
 				resolve(success);
@@ -199,46 +181,26 @@ function prepareTransfer(iota, seed, recipientAddress, rawValue, rawMessage, raw
 		// check tag
 		if (!iota.valid.isTrytes(tagInTrytes, Config.MAX_LENGTH_TAG)) {
 			reject(new Error(functionName + " - invalid tagInTrytes!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid tagInTrytes!");
-			}
 		}
 
 		// check message length
 		if (lengthMessageInTrytes >= Config.MAX_LENGTH_MESSAGE) {
 			reject(new Error(functionName + " - invalid lengthMessageInTrytes!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid lengthMessageInTrytes!");
-			}
 		}
 
 		// check message
 		if (!iota.valid.isTrytes(messageInTrytes, lengthMessageInTrytes)) {
 			reject(new Error(functionName + " - invalid messageInTrytes!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid messageInTrytes!");
-			}
 		}
 
 		// check value
 		if (isNaN(rawValue)) {
 			reject(new Error(functionName + " - invalid value of IOTA!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid value of IOTA!");
-			}
 		}
 
 		// check recipient address
 		if (!iota.valid.isAddress(recipientAddress)) {
 			reject(new InvalidAddressException(functionName + " - invalid recipientAddress!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid recipientAddress!");
-			}
 		}
 
 		// recipient address must be without checksum, just 81 trytes
@@ -253,10 +215,6 @@ function prepareTransfer(iota, seed, recipientAddress, rawValue, rawMessage, raw
 
 		if (!iota.valid.isTransfersArray(transfersArray)) {
 			reject(new Error(functionName + " - invalid transfersArray!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid transfersArray!");
-			}
 		}
 
 		// prepare options parameters
@@ -269,10 +227,6 @@ function prepareTransfer(iota, seed, recipientAddress, rawValue, rawMessage, raw
 			// check remainder address
 			if (!iota.valid.isAddress(remainderAddress)) {
 				reject(new InvalidAddressException(functionName + " - invalid remainderAddress!"));
-			} else {
-				if (DEBUG) {
-					Utils.consoleLog("DEBUG", functionName, "valid remainderAddress!");
-				}
 			}
 
 			options.address = iota.utils.noChecksum(remainderAddress);
@@ -283,10 +237,6 @@ function prepareTransfer(iota, seed, recipientAddress, rawValue, rawMessage, raw
 			// prepare transfer with inputs
 			if (!iota.valid.isInputs(inputsArray)) {
 				reject(new Error(functionName + " - invalid inputsArray!"));
-			} else {
-				if (DEBUG) {
-					Utils.consoleLog("DEBUG", functionName, "valid inputsArray!");
-				}
 			}
 
 			options.inputs = inputsArray;
@@ -316,12 +266,8 @@ function getNodeInfo(iota) {
 	return new Promise(function (resolve, reject) {
 		iota.api.getNodeInfo(function (error, success) {
 			if (error) {
-				Utils.consoleLog("ERROR", functionName, error);
 				reject(new Error(functionName + " - " + error));
 			} else {
-				if (DEBUG) {
-					Utils.consoleLog("DEBUG", functionName, success);
-				}
 				resolve(success);
 			}
 		});
@@ -348,28 +294,16 @@ function attachToTangle(iota, seed, recipientAddress, depth, min_weight_magnitud
 		// check tag
 		if (!iota.valid.isTrytes(tagInTrytes, Config.MAX_LENGTH_TAG)) {
 			reject(new Error(functionName + " - invalid tagInTrytes!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid tagInTrytes!");
-			}
 		}
 
 		// check seed
 		if (!iota.valid.isAddress(seed)) {
 			reject(new InvalidSeedException(functionName, "invalid Seed!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid seed!");
-			}
 		}
 
 		// check recipient address
 		if (!iota.valid.isAddress(recipientAddress)) {
 			reject(new InvalidAddressException(functionName + " - invalid recipientAddress!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid recipientAddress!");
-			}
 		}
 
 		// recipient address must be without checksum, just 81 trytes
@@ -384,21 +318,13 @@ function attachToTangle(iota, seed, recipientAddress, depth, min_weight_magnitud
 
 		if (!iota.valid.isTransfersArray(transfersArray)) {
 			reject(new Error(functionName + " - invalid transfersArray!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "valid transfersArray!");
-			}
 		}
 
 		// now you can start using all of the functions
 		iota.api.sendTransfer(seed, depth, min_weight_magnitude, transfersArray, function (error, success) {
 			if (error) {
-				Utils.consoleLog("ERROR", functionName, error);
 				reject(new Error(functionName + " - " + error));
 			} else {
-				if (DEBUG) {
-					Utils.consoleLog("DEBUG", functionName, success);
-				}
 				resolve(success);
 			}
 		});
@@ -419,10 +345,6 @@ function findTransactionObjects(iota, address) {
 	return new Promise(function (resolve, reject) {
 		if (!iota.valid.isAddress(address)) {
 			reject(new InvalidAddressException(functionName + " - Invalid address!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "Valid address!");
-			}
 		}
 
 		let searchValues = {
@@ -453,10 +375,6 @@ function getLatestInclusion(iota, hash) {
 	return new Promise(function (resolve, reject) {
 		if (!iota.valid.isHash(hash)) {
 			reject(new InvalidHashException(functionName + " - Invalid hash!"));
-		} else {
-			if (DEBUG) {
-				Utils.consoleLog("DEBUG", functionName, "Valid hash!");
-			}
 		}
 
 		let hashes = [
