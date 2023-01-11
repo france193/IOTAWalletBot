@@ -53,7 +53,7 @@
     "gulp-replace": "^0.6.1",
     "gulp-uglify": "^3.0.0",
     "jshint": "^2.9.4",
-    "mocha": "^3.2.0",
+    "mocha": "^10.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
